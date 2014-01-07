@@ -12,6 +12,12 @@ public class guiToggle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		RaycastHit hit;
+		RaycastHit ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (ray, hit, 100f)) {
+			toggle = true;	Debug.Log("you are on me");
+
+		} else {toggle=false;}
 
 	
 	}
