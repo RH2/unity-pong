@@ -33,6 +33,10 @@ ModelImporter:
     100054: star_001
     100056: tmpvar_001
     100058: //RootNode
+    100060: burst_001
+    100062: rh2Active_001
+    100064: star_003
+    100066: tmpvarActive_001
     400000: bird_001
     400002: creators_001
     400004: div_001
@@ -63,6 +67,10 @@ ModelImporter:
     400054: star_001
     400056: tmpvar_001
     400058: //RootNode
+    400060: burst_001
+    400062: rh2Active_001
+    400064: star_003
+    400066: tmpvarActive_001
     2300000: bird_001
     2300002: creators_001
     2300004: div_001
@@ -92,6 +100,10 @@ ModelImporter:
     2300052: singlePlayerPassive_001
     2300054: star_001
     2300056: tmpvar_001
+    2300058: burst_001
+    2300060: rh2Active_001
+    2300062: star_003
+    2300064: tmpvarActive_001
     3300000: bird_001
     3300002: creators_001
     3300004: div_001
@@ -121,6 +133,10 @@ ModelImporter:
     3300052: singlePlayerPassive_001
     3300054: star_001
     3300056: tmpvar_001
+    3300058: burst_001
+    3300060: rh2Active_001
+    3300062: star_003
+    3300064: tmpvarActive_001
     4300000: div_001
     4300002: pong2013_001
     4300004: creators_001
@@ -150,6 +166,10 @@ ModelImporter:
     4300052: number_4_001
     4300054: number_3_001
     4300056: number_2_001
+    4300058: star_003
+    4300060: tmpvarActive_001
+    4300062: rh2Active_001
+    4300064: burst_001
     7400000: Default Take
     9500000: //RootNode
   materials:
