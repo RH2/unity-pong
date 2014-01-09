@@ -20,19 +20,15 @@ public class menuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		keyboardCurrentCooldown = keyboardCurrentCooldown -Time.deltaTime;
-		if (keyboardCurrentCooldown > 0f) {keyboardOffset ();}
+		keyboardCurrentCooldown = keyboardCurrentCooldown - Time.deltaTime;
+		if (keyboardCurrentCooldown < 0f) {keyboardOffset ();}
 		activeItem = checkMouseOver(activeItem);
 		updateMenu ();
-		Debug.Log (activeItem);
-		if (keyboardCurrentCooldown > 0f && (Input.GetKeyUp(KeyCode.Space)||Input.GetKeyUp(KeyCode.Return)|| Input.GetMouseButtonDown(0))) {executeChoice ();}
+		if (keyboardCurrentCooldown < 0f && (Input.GetKeyUp(KeyCode.Space)||Input.GetKeyUp(KeyCode.Return)|| Input.GetMouseButtonDown(0))) {executeChoice ();}
 	}
 	void executeChoice(){
-		//if (Input.GetKey(KeyCode.Space)||Input.GetKey(KeyCode.Return)|| Input.GetMouseButtonDown(0))
-		//if (Input.GetKeyUp(KeyCode.Space)||Input.GetKeyUp(KeyCode.Return)|| Input.GetMouseButtonDown(0)){
 			//todo play execute sound
-			Debug.Log("you clicked:  "+activeItem);
-			keyboardCurrentCooldown = keyboardCooldown;
+			resetkeyboardcooldown();
 			switch(activeItem){
 			case(1):
 				Application.LoadLevel ("arena"); 
@@ -110,18 +106,20 @@ public class menuController : MonoBehaviour {
 		return active;
 	}
 	void keyboardOffset(){	
-
 		if (Input.GetKey (KeyCode.UpArrow) || Input.GetKey (KeyCode.W)) {
 			//todo play sound up
 			activeItem--;
 			if(activeItem<1){activeItem=8;}
+			resetkeyboardcooldown();
 		}
 		if ( Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S) ){
 			//todo play sound down
 			activeItem++;
 			if(activeItem>8){activeItem=1;}
+			resetkeyboardcooldown();
 		}
-		keyboardCurrentCooldown = keyboardCooldown;
+
 
 	}
+	void resetkeyboardcooldown(){keyboardCurrentCooldown = keyboardCooldown;}
 }
