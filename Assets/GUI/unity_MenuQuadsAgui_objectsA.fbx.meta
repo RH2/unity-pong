@@ -37,6 +37,21 @@ ModelImporter:
     100062: rh2Active_001
     100064: star_003
     100066: tmpvarActive_001
+    100068: burst_blue_001
+    100070: burst_orange_001
+    100072: computerOverlordwins_001
+    100074: greenDashBar_001
+    100076: pause_active_001
+    100078: pause_passive_001
+    100080: playerOneWins_001
+    100082: playerTwoWins_001
+    100084: redArc_001
+    100086: resume_active_001
+    100088: resume_passive_001
+    100090: returnMenu_active_001
+    100092: returnMenu_passive_001
+    100094: thanks_001
+    100096: thanksv2_001
     400000: bird_001
     400002: creators_001
     400004: div_001
@@ -71,6 +86,21 @@ ModelImporter:
     400062: rh2Active_001
     400064: star_003
     400066: tmpvarActive_001
+    400068: burst_blue_001
+    400070: burst_orange_001
+    400072: computerOverlordwins_001
+    400074: greenDashBar_001
+    400076: pause_active_001
+    400078: pause_passive_001
+    400080: playerOneWins_001
+    400082: playerTwoWins_001
+    400084: redArc_001
+    400086: resume_active_001
+    400088: resume_passive_001
+    400090: returnMenu_active_001
+    400092: returnMenu_passive_001
+    400094: thanks_001
+    400096: thanksv2_001
     2300000: bird_001
     2300002: creators_001
     2300004: div_001
@@ -104,6 +134,21 @@ ModelImporter:
     2300060: rh2Active_001
     2300062: star_003
     2300064: tmpvarActive_001
+    2300066: burst_blue_001
+    2300068: burst_orange_001
+    2300070: computerOverlordwins_001
+    2300072: greenDashBar_001
+    2300074: pause_active_001
+    2300076: pause_passive_001
+    2300078: playerOneWins_001
+    2300080: playerTwoWins_001
+    2300082: redArc_001
+    2300084: resume_active_001
+    2300086: resume_passive_001
+    2300088: returnMenu_active_001
+    2300090: returnMenu_passive_001
+    2300092: thanks_001
+    2300094: thanksv2_001
     3300000: bird_001
     3300002: creators_001
     3300004: div_001
@@ -137,6 +182,21 @@ ModelImporter:
     3300060: rh2Active_001
     3300062: star_003
     3300064: tmpvarActive_001
+    3300066: burst_blue_001
+    3300068: burst_orange_001
+    3300070: computerOverlordwins_001
+    3300072: greenDashBar_001
+    3300074: pause_active_001
+    3300076: pause_passive_001
+    3300078: playerOneWins_001
+    3300080: playerTwoWins_001
+    3300082: redArc_001
+    3300084: resume_active_001
+    3300086: resume_passive_001
+    3300088: returnMenu_active_001
+    3300090: returnMenu_passive_001
+    3300092: thanks_001
+    3300094: thanksv2_001
     4300000: div_001
     4300002: pong2013_001
     4300004: creators_001
@@ -170,6 +230,21 @@ ModelImporter:
     4300060: tmpvarActive_001
     4300062: rh2Active_001
     4300064: burst_001
+    4300066: redArc_001
+    4300068: burst_orange_001
+    4300070: burst_blue_001
+    4300072: playerOneWins_001
+    4300074: thanksv2_001
+    4300076: computerOverlordwins_001
+    4300078: returnMenu_active_001
+    4300080: playerTwoWins_001
+    4300082: resume_active_001
+    4300084: returnMenu_passive_001
+    4300086: pause_active_001
+    4300088: pause_passive_001
+    4300090: resume_passive_001
+    4300092: thanks_001
+    4300094: greenDashBar_001
     7400000: Default Take
     9500000: //RootNode
   materials:
