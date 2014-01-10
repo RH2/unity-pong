@@ -77,10 +77,10 @@ public class gameFlow : MonoBehaviour {
 	void serve1(){
 		//from paddle1 until user hits hotkey, then it adds paddles velocity + horizonatal
 		ball.transform.position = paddle1.transform.position;
-		ball.transform.position = new Vector3(ball.transform.position.x + 2.0f, 0.5f, 0.0f);
+		ball.transform.position = new Vector3(paddle1.transform.position.x + 5, 0.5f, paddle1.transform.position.z);
 		ball.rigidbody.velocity = Vector3.zero;
 		ball.rigidbody.angularVelocity = Vector3.zero;
-		//ball.transform.position.parent = paddle1.transform;
+		ball.transform.parent = paddle1.transform;
 	}
 	void serve2(){
 		ball.transform.position = paddle2.transform.position;
