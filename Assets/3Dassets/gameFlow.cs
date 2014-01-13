@@ -22,6 +22,7 @@ public class gameFlow : MonoBehaviour {
 	[SerializeField] GameObject player1scoredisplay;
 	[SerializeField] GameObject player2scoredisplay;
 	[SerializeField] GameObject pausemenu;
+	bool gamepaused = false;
 
 
 
@@ -36,22 +37,36 @@ public class gameFlow : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	void pause (){
+		if (gamepaused) {
+			gamepaused = false;
+			Time.timeScale = 1F;
+		} else {
+			gamepaused = true;
+			Time.timeScale = 0F;
+		}
+		pausemenu.GetComponent<pauseMenuBehavior> ().setMenuvisibility(gamepaused);
+	}
 	void Update () {
+		if (Input.GetKeyUp (KeyCode.P)) {
+			pause();
+		}
 		bool scoreevent1 = scorezone1.GetComponent<scoreZone>().getEvent();
 		if (scoreevent1) {
+			serve2();
 			player1score++;
 			Debug.Log("player1score: "+player1score);
-			//update score2 object
-			serve2();//player 2 serves
+			player1scoredisplay.GetComponent<guiNumberController> ().inputNumber(player1score);
 			//Application.LoadLevel (Application.loadedLevelName);
 
 		}
 		bool scoreevent2 = scorezone2.GetComponent<scoreZone>().getEvent();
 		if (scoreevent2) {
+			serve1();
 			player2score++;
 			Debug.Log("player2score: "+player2score);
-			serve1();//update score1 object
-			//player 1 serves
+			player2scoredisplay.GetComponent<guiNumberController> ().inputNumber(player2score);
+
 
 		}
 		bool foul = foulballdetector.GetComponent<scoreZone>().getEvent();
@@ -83,14 +98,5 @@ public class gameFlow : MonoBehaviour {
 		ball.transform.parent = paddle1.transform;
 	}
 	void serve2(){
-		ball.transform.position = paddle2.transform.position;
 	}
-	void pauseGame(){
-		//set pause menu to visible
-		//resume
-		//restart
-		//main menu
-		//exit	
-	}
-
 }
