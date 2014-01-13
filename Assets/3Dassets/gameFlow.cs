@@ -28,6 +28,7 @@ public class gameFlow : MonoBehaviour {
 
 
 	// Use this for initialization
+	public void setgamepause(bool a){gamepaused = a;}
 	void Start () {
 		//randomServeCenter ();
 		//update score objects
@@ -37,7 +38,7 @@ public class gameFlow : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void pause (){
+	public void pause (){
 		if (gamepaused) {
 			gamepaused = false;
 			Time.timeScale = 1F;

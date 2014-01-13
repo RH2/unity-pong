@@ -15,11 +15,23 @@ public class menuController : MonoBehaviour {
 	float keyboardCurrentCooldown;
 	// Use this for initialization
 	void Start () {
-		keyboardCurrentCooldown = keyboardCooldown;
+		menu1.GetComponent<guiToggle> ().setAllVisible(true);
+		menu2.GetComponent<guiToggle> ().setAllVisible(true);
+		menu3.GetComponent<guiToggle> ().setAllVisible(true);
+		menu4.GetComponent<guiToggle> ().setAllVisible(true);
+		menu5.GetComponent<guiToggle> ().setAllVisible(true);
+		menu6.GetComponent<guiToggle> ().setAllVisible(true);
+		menu7.GetComponent<guiToggle> ().setAllVisible(true);
+		menu8.GetComponent<guiToggle> ().setAllVisible(true);
+
+
+		resetkeyboardcooldown ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log(activeItem);
 		keyboardCurrentCooldown = keyboardCurrentCooldown - Time.deltaTime;
 		if (keyboardCurrentCooldown < 0f) {keyboardOffset ();}
 		activeItem = checkMouseOver(activeItem);
@@ -118,8 +130,6 @@ public class menuController : MonoBehaviour {
 			if(activeItem>8){activeItem=1;}
 			resetkeyboardcooldown();
 		}
-
-
 	}
 	void resetkeyboardcooldown(){keyboardCurrentCooldown = keyboardCooldown;}
 }

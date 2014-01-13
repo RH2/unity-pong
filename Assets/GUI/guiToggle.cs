@@ -41,5 +41,5 @@ public class guiToggle : MonoBehaviour {
 	public bool getMouseOver(){return mouseover;}
 	public void setToggle(bool a){toggle=a;}
 	public bool getToggle(){return toggle;}
-	public void setAllVisible(bool a){allVisible=a;Debug.Log ("does this WORK?");}
+	public void setAllVisible(bool a){allVisible=a;}
 }
