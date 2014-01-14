@@ -23,7 +23,6 @@ public class Paddle : MonoBehaviour {
 		if (Input.GetKeyUp("space")) {
 			GameObject [] balls = GameObject.FindGameObjectsWithTag("ball");
 			foreach (GameObject b in balls) {
-				Debug.Log ("here");
 				if (b.transform.parent == this.transform) {
 					b.transform.parent = null;
 					b.rigidbody.velocity = velocity + new Vector3((transform.position.x < 0) ? 50.0f : -50.0f, 0.0f, 0.0f);

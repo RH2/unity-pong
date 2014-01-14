@@ -16,6 +16,8 @@ public class gameFlow : MonoBehaviour {
 	[SerializeField] GameObject foulballdetector;
 	int player1score=0;
 	int player2score=0;
+	float scoreCooldown = 0.1f;
+	float scoreCooldownCurrent;
 	//////////////////
 	/// USER INTERFACE
 	////////////////// 
@@ -25,10 +27,9 @@ public class gameFlow : MonoBehaviour {
 	bool gamepaused = false;
 
 
-
-
-	// Use this for initialization
+	void reset_scoreCooldownCurrent (){scoreCooldownCurrent = scoreCooldown;}
 	public void setgamepause(bool a){gamepaused = a;}
+	// Use this for initialization
 	void Start () {
 		//randomServeCenter ();
 		//update score objects
@@ -49,26 +50,28 @@ public class gameFlow : MonoBehaviour {
 		pausemenu.GetComponent<pauseMenuBehavior> ().setMenuvisibility(gamepaused);
 	}
 	void Update () {
+		scoreCooldownCurrent = scoreCooldownCurrent - Time.deltaTime;
 		if (Input.GetKeyUp (KeyCode.P)) {
 			pause();
 		}
 		bool scoreevent1 = scorezone1.GetComponent<scoreZone>().getEvent();
-		if (scoreevent1) {
-			serve2();
-			player1score++;
-			Debug.Log("player1score: "+player1score);
-			player1scoredisplay.GetComponent<guiNumberController> ().inputNumber(player1score);
-			//Application.LoadLevel (Application.loadedLevelName);
-
-		}
-		bool scoreevent2 = scorezone2.GetComponent<scoreZone>().getEvent();
-		if (scoreevent2) {
-			serve1();
-			player2score++;
-			Debug.Log("player2score: "+player2score);
-			player2scoredisplay.GetComponent<guiNumberController> ().inputNumber(player2score);
-
-
+		if (scoreCooldownCurrent < 0) {
+			if (scoreevent1) {
+					reset_scoreCooldownCurrent ();
+					serve2 ();
+					player1score++;
+					Debug.Log ("player1score: " + player1score);
+					player1scoredisplay.GetComponent<guiNumberController> ().inputNumber (player1score);
+					//Application.LoadLevel (Application.loadedLevelName);
+			}
+			bool scoreevent2 = scorezone2.GetComponent<scoreZone> ().getEvent ();
+			if (scoreevent2) {
+					reset_scoreCooldownCurrent ();
+					serve1 ();
+					player2score++;
+					Debug.Log ("player2score: " + player2score);
+					player2scoredisplay.GetComponent<guiNumberController> ().inputNumber (player2score);
+			}
 		}
 		bool foul = foulballdetector.GetComponent<scoreZone>().getEvent();
 		if (foul) {

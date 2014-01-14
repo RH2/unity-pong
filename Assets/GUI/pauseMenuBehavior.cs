@@ -3,8 +3,8 @@ using System.Collections;
 
 public class pauseMenuBehavior : MonoBehaviour {
 	int activeItem = 1;
-	bool menuVisible;
-	bool menuVisibleLastFrame;
+	bool menuVisible=false;
+	bool menuOptionsAccess=false;
 	[SerializeField] GameObject pauseToggleObject;
 	[SerializeField] GameObject resumeToggleObject;
 	[SerializeField] GameObject returnToggleObject;
@@ -18,14 +18,17 @@ public class pauseMenuBehavior : MonoBehaviour {
 
 	int animationProgress=0;
 	bool animaitonComplete=true;
-	float keyboardCooldown = 0.18f;
-	float keyboardCurrentCooldown;
+	int keyboardCooldown = 10;
+	int keyboardCurrentCooldown;
 
-
-	void Start () {resetkeyboardcooldown ();}
+	void OnLevelWasLoaded(){Start();}
+	void Start () {
+		activeItem = 1;
+		resetkeyboardcooldown ();
+	}
 	void Update () {
 		Debug.Log (activeItem);
-		keyboardCurrentCooldown = keyboardCurrentCooldown - Time.deltaTime;
+		keyboardCurrentCooldown = keyboardCurrentCooldown-1;
 		//if visible
 		if (menuVisible) {
 			//extend
@@ -40,18 +43,20 @@ public class pauseMenuBehavior : MonoBehaviour {
 			//retract
 				animateMenu(menuVisible);
 		}
-		if (menuVisible) {
-			if (keyboardCurrentCooldown < 0f) {keyboardOffset ();}
-			activeItem = checkMouseOver(activeItem);
+		Debug.Log ("menus options available:  "+menuOptionsAccess);
+		if (menuOptionsAccess) {
+			Debug.Log(keyboardCurrentCooldown);
+			if (keyboardCurrentCooldown < 0f) {
+				Debug.Log ("has the keyboard done anything?");
+				pauseKeyboardOffset ();
+			}
+			activeItem = checkMouseOver (activeItem);
 			updateMenu ();
 			if (keyboardCurrentCooldown < 0f && (Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Return) || Input.GetMouseButtonUp (0))) {
+				Debug.Log ("are we trying to execute?");
 				executeChoice ();
 			}
 		}
-				
-				
-
-
 	}
 	void executeChoice(){
 		//todo play execute sound
@@ -93,14 +98,14 @@ public class pauseMenuBehavior : MonoBehaviour {
 		
 		return active;
 	}
-	void keyboardOffset(){	
-		if (Input.GetKey (KeyCode.UpArrow) || Input.GetKey (KeyCode.W)) {
+	void pauseKeyboardOffset(){	
+		if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) {
 			//todo play sound up
 			activeItem--;
 			if(activeItem<1){activeItem=3;}
 			resetkeyboardcooldown();
 		}
-		if ( Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S) ){
+		if ( Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.S) ){
 			//todo play sound down
 			activeItem++;
 			if(activeItem>3){activeItem=1;}
@@ -110,7 +115,7 @@ public class pauseMenuBehavior : MonoBehaviour {
 	void resetkeyboardcooldown(){keyboardCurrentCooldown = keyboardCooldown;}
 	
 	void reveal(){
-
+		menuOptionsAccess = true;
 		redArcUL.GetComponent<simpleRenderInterface> ().setvisibility(true);
 		redArcUR.GetComponent<simpleRenderInterface> ().setvisibility(true);
 		redArcBL.GetComponent<simpleRenderInterface> ().setvisibility(true);
@@ -125,6 +130,7 @@ public class pauseMenuBehavior : MonoBehaviour {
 		//after animation reveal 
 	}
 	void hide(){
+		menuOptionsAccess = false;
 		orangeTop.GetComponent<simpleRenderInterface> ().setvisibility(false);
 		orangeBottom.GetComponent<simpleRenderInterface> ().setvisibility(false);
 

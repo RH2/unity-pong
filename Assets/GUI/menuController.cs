@@ -14,7 +14,10 @@ public class menuController : MonoBehaviour {
 	float keyboardCooldown = 0.18f;
 	float keyboardCurrentCooldown;
 	// Use this for initialization
+	void OnLevelWasLoaded(){Start();}
 	void Start () {
+		Time.timeScale = 1F;
+		activeItem = 1;
 		menu1.GetComponent<guiToggle> ().setAllVisible(true);
 		menu2.GetComponent<guiToggle> ().setAllVisible(true);
 		menu3.GetComponent<guiToggle> ().setAllVisible(true);
@@ -31,7 +34,6 @@ public class menuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(activeItem);
 		keyboardCurrentCooldown = keyboardCurrentCooldown - Time.deltaTime;
 		if (keyboardCurrentCooldown < 0f) {keyboardOffset ();}
 		activeItem = checkMouseOver(activeItem);
