@@ -14,9 +14,10 @@ public class gameFlow : MonoBehaviour {
 	[SerializeField] GameObject scorezone1;
 	[SerializeField] GameObject scorezone2;
 	[SerializeField] GameObject foulballdetector;
+	[SerializeField] GameObject foulballdetector2;
 	int player1score=0;
 	int player2score=0;
-	float scoreCooldown = 0.1f;
+	float scoreCooldown = 0.2f;
 	float scoreCooldownCurrent;
 	//////////////////
 	/// USER INTERFACE
@@ -73,12 +74,7 @@ public class gameFlow : MonoBehaviour {
 					player2scoredisplay.GetComponent<guiNumberController> ().inputNumber (player2score);
 			}
 		}
-		bool foul = foulballdetector.GetComponent<scoreZone>().getEvent();
-		if (foul) {
-			randomServeCenter();
-			Debug.Log("foul");
-			//randomServeCenter;
-			}
+		if (foulballdetector.GetComponent<scoreZone> ().getEvent () || foulballdetector2.GetComponent<scoreZone> ().getEvent ()) {randomServeCenter();}
 
 		//states:   foul ball, start player 1, start player 2
 	}
