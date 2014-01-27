@@ -3,6 +3,7 @@ using System.Collections;
 
 public class menuController : MonoBehaviour {
 	int activeItem = 1;
+	[SerializeField] GameObject DATA;
 	[SerializeField] GameObject menu1;
 	[SerializeField] GameObject menu2;
 	[SerializeField] GameObject menu3;
@@ -45,7 +46,10 @@ public class menuController : MonoBehaviour {
 			resetkeyboardcooldown();
 			switch(activeItem){
 			case(1):
-				Application.LoadLevel ("arena"); 
+				DATA.GetComponent<persistantPongData> ().setPlayerTwoType(3);//1 local //2 network //3 computer
+				DATA.GetComponent<persistantPongData> ().setPlayerOneScore(0);
+				DATA.GetComponent<persistantPongData> ().setPlayerTwoScore(0);
+				Application.LoadLevel ("arena");
 				break;
 			case(2):
 				

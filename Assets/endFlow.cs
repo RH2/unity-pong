@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class endFlow : MonoBehaviour {
-	[SerializeField] GameObject DATA;
+	GameObject DATA;
 	[SerializeField] GameObject playerOneWins;
 	[SerializeField] GameObject playerTwoWins;
 	[SerializeField] GameObject computerWins;
+	[SerializeField] GameObject returnToMenu;
 
 	int endState=0;
 	int playerOneFinalScore=000;
@@ -17,11 +18,13 @@ public class endFlow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	//	endState = DATA.GetComponent<dataBlock> ().getState();
-	//	playerOneFinalScore = DATA.GetComponent<dataBlock> ().getScoreA();
-	//	playerTwoFinalScore = DATA.GetComponent<dataBlock> ().getScoreB();
+		GameObject DATA = GameObject.Find("A_DATA");
+		endState = DATA.GetComponent<persistantPongData> ().getWinner();
+		playerOneFinalScore = DATA.GetComponent<persistantPongData> ().getPlayerOneScore();
+		playerTwoFinalScore = DATA.GetComponent<persistantPongData> ().getPlayerTwoScore();
 		playerOneScore.GetComponent<guiNumberv2> ().setNumber (playerOneFinalScore);
 		playerTwoScore.GetComponent<guiNumberv2> ().setNumber (playerTwoFinalScore);
+		returnToMenu.GetComponent<guiToggle> ().setAllVisible(true);
 
 		playerOneWins.renderer.enabled = false;
 		playerTwoWins.renderer.enabled = false;
@@ -32,10 +35,10 @@ public class endFlow : MonoBehaviour {
 				playerOneWins.renderer.enabled = true;
 				break;
 			case(2):
-				playerOneWins.renderer.enabled = true;
+				playerTwoWins.renderer.enabled = true;
 				break;
 			case(3):
-				playerOneWins.renderer.enabled = true;
+				computerWins.renderer.enabled = true;
 				break;
 
 		}
@@ -43,6 +46,10 @@ public class endFlow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.anyKey) {
+			Application.LoadLevel ("menu");
+			Debug.Log("here");
+		}
 	
 	}
 }

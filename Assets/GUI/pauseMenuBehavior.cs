@@ -43,7 +43,6 @@ public class pauseMenuBehavior : MonoBehaviour {
 			//retract
 				animateMenu(menuVisible);
 		}
-		Debug.Log ("menus options available:  "+menuOptionsAccess);
 		if (menuOptionsAccess) {
 			Debug.Log(keyboardCurrentCooldown);
 			if (keyboardCurrentCooldown < 0f) {

@@ -5,6 +5,7 @@ public class gameFlow : MonoBehaviour {
 	//////////////////
 	/// MOVING PARTS
 	////////////////// 
+	GameObject DATA;
 	[SerializeField] GameObject paddle1;
 	[SerializeField] GameObject paddle2;//player or computer bool?
 	[SerializeField] GameObject ball;
@@ -32,6 +33,11 @@ public class gameFlow : MonoBehaviour {
 	public void setgamepause(bool a){gamepaused = a;}
 	// Use this for initialization
 	void Start () {
+		GameObject DATA = GameObject.Find("A_DATA");
+		DATA.GetComponent<persistantPongData> ().setPlayerOneScore(0);
+		DATA.GetComponent<persistantPongData> ().setPlayerTwoScore(0);
+		paddle2.GetComponent<Paddle> ().setPaddleType (DATA.GetComponent<persistantPongData> ().getPlayerTwoType());
+		paddle2.GetComponent<Paddle> ().setDifficulty (DATA.GetComponent<persistantPongData> ().getDifficulty());
 		//randomServeCenter ();
 		//update score objects
 		//randomly choose which player does the first serve
@@ -61,17 +67,31 @@ public class gameFlow : MonoBehaviour {
 					reset_scoreCooldownCurrent ();
 					serve2 ();
 					player1score++;
-					Debug.Log ("player1score: " + player1score);
+					DATA.GetComponent<persistantPongData> ().setPlayerOneScore(player1score);
 					player1scoredisplay.GetComponent<guiNumberController> ().inputNumber (player1score);
-					//Application.LoadLevel (Application.loadedLevelName);
+					if(player1score>3){
+						DATA.GetComponent<persistantPongData>().setWinner(1);//1=player;2=player2;3=computer;
+						Application.LoadLevel ("end");
+					}
 			}
 			bool scoreevent2 = scorezone2.GetComponent<scoreZone> ().getEvent ();
 			if (scoreevent2) {
 					reset_scoreCooldownCurrent ();
 					serve1 ();
 					player2score++;
-					Debug.Log ("player2score: " + player2score);
+					DATA.GetComponent<persistantPongData> ().setPlayerTwoScore(player2score);
 					player2scoredisplay.GetComponent<guiNumberController> ().inputNumber (player2score);
+					if(player2score>3){
+							switch (DATA.GetComponent<persistantPongData>().getPlayerTwoType()){
+								case(2):
+									DATA.GetComponent<persistantPongData>().setWinner(2);//1=player;2=player2;3=computer;
+									break;
+								case(3):
+									DATA.GetComponent<persistantPongData>().setWinner(3);//1=player;2=player2;3=computer;
+									break;
+							}
+						Application.LoadLevel ("end");
+					}
 			}
 		}
 		if (foulballdetector.GetComponent<scoreZone> ().getEvent () || foulballdetector2.GetComponent<scoreZone> ().getEvent ()) {randomServeCenter();}
