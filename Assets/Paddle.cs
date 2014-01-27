@@ -5,6 +5,7 @@ public class Paddle : MonoBehaviour {
 	[SerializeField] GameObject ball;
 	public Vector3 velocity;
 	[SerializeField] int paddletype =1; //1 equals player, 2 equals network, 3 equals computer control
+	float difficulty=0.01f;
 	bool paddleActiveServer = false; //if true, this paddle serves
 	float distance= 1f;
 	void Start () {}
@@ -32,21 +33,20 @@ public class Paddle : MonoBehaviour {
 			case(2)://is player via network
 				break;		
 			case(3)://is computer control
-			Debug.Log("made it here");
-					if (ball.transform.position.z<transform.position.z){
-						//transform.Translate(0f,0f,transform.position.z+distance);
-						//transform modTransform = ball.transform.position.z+distance;
-						//ball.transform.position.z=modTransform;
+			//Debug.Log("made it here"+"   ball.z= "+ball.transform.position.z+"    this.z* "+this.transform.position.z);
+			Vector3 position = this.transform.position;
+			this.transform.position += new Vector3(0f, 0f, difficulty*(ball.rigidbody.position.z - this.transform.position.z));
+			/*		if (ball.transform.position.z<transform.position.z){
+						//do something
 					}
 					else{
-						//transform.Translate(0f,0f,transform.position.z-distance);
-						//Vector3 modTransform = ball.transform.position.z-distance;
-						//ball.transform.position.z=modTransform;				
-			}
+						//do something else
+					}*/
 			break;
 		}
 	}
 	public void ballAttach(){ball.transform.parent = this.transform;}
 	public void setActiveServer(bool a){paddleActiveServer = a;}
 	public void setPaddleType(int a){paddletype = a;}
+	public void setDifficulty(float a){difficulty = a;}
 }
