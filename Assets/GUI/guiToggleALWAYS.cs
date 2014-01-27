@@ -3,7 +3,6 @@ using System.Collections;
 
 public class guiToggleALWAYS : MonoBehaviour {
 	[SerializeField] GameObject Passive;
-	string expecting;
 	bool mouseover = false;
 	bool toggle = false;
 	Ray ray;

@@ -34,7 +34,6 @@ public class Paddle : MonoBehaviour {
 				break;		
 			case(3)://is computer control
 			//Debug.Log("made it here"+"   ball.z= "+ball.transform.position.z+"    this.z* "+this.transform.position.z);
-			Vector3 position = this.transform.position;
 			this.transform.position += new Vector3(0f, 0f, difficulty*(ball.rigidbody.position.z - this.transform.position.z));
 			/*		if (ball.transform.position.z<transform.position.z){
 						//do something
