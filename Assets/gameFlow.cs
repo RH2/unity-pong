@@ -33,7 +33,7 @@ public class gameFlow : MonoBehaviour {
 	public void setgamepause(bool a){gamepaused = a;}
 	// Use this for initialization
 	void Start () {
-		GameObject DATA = GameObject.Find("A_DATA");
+		DATA = GameObject.Find("A_DATA");
 		DATA.GetComponent<persistantPongData> ().setPlayerOneScore(0);
 		DATA.GetComponent<persistantPongData> ().setPlayerTwoScore(0);
 		paddle2.GetComponent<Paddle> ().setPaddleType (DATA.GetComponent<persistantPongData> ().getPlayerTwoType());

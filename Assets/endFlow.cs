@@ -18,7 +18,7 @@ public class endFlow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameObject DATA = GameObject.Find("A_DATA");
+		DATA = GameObject.Find("A_DATA");
 		endState = DATA.GetComponent<persistantPongData> ().getWinner();
 		playerOneFinalScore = DATA.GetComponent<persistantPongData> ().getPlayerOneScore();
 		playerTwoFinalScore = DATA.GetComponent<persistantPongData> ().getPlayerTwoScore();
