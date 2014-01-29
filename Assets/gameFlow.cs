@@ -62,7 +62,7 @@ public class gameFlow : MonoBehaviour {
 	void Update () {
 		scoreCooldownCurrent = scoreCooldownCurrent - Time.deltaTime;
 		if (Input.GetKeyUp (KeyCode.P)) {
-			AudioSource.PlayClipAtPoint(pauseMenuToggle,new Vector3(0f, 25f, 0f),1f);
+			AudioSource.PlayClipAtPoint(pauseMenuToggle,new Vector3(0f, 20f, 0f),0.75f);
 			pause();
 		}
 		bool scoreevent1 = scorezone1.GetComponent<scoreZone>().getEvent();

@@ -29,7 +29,6 @@ public class pauseMenuBehavior : MonoBehaviour {
 		resetkeyboardcooldown ();
 	}
 	void Update () {
-		Debug.Log (activeItem);
 		keyboardCurrentCooldown = keyboardCurrentCooldown-1;
 		//if visible
 		if (menuVisible) {
