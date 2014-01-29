@@ -15,6 +15,8 @@ public class pauseMenuBehavior : MonoBehaviour {
 	[SerializeField] GameObject orangeTop;
 	[SerializeField] GameObject orangeBottom;
 	[SerializeField] GameObject gamecontroller;
+	[SerializeField] AudioClip pauseMenuUp;
+	[SerializeField] AudioClip pauseMenuDown;
 
 	int animationProgress=0;
 	bool animaitonComplete=true;
@@ -89,28 +91,35 @@ public class pauseMenuBehavior : MonoBehaviour {
 		int active = 1;
 		if (pauseToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
 			active = 1;
+			soundfxUP();
 		} else if (resumeToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
 			active = 2;
+			soundfxUP();
 		} else if (returnToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
 			active = 3;
+			soundfxUP();
 		} else {active = current;}
 		
 		return active;
 	}
 	void pauseKeyboardOffset(){	
 		if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) {
-			//todo play sound up
+			//play sound up
+				soundfxUP();
 			activeItem--;
 			if(activeItem<1){activeItem=3;}
 			resetkeyboardcooldown();
 		}
 		if ( Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.S) ){
-			//todo play sound down
+			// play sound down
+				soundfxDown();
 			activeItem++;
 			if(activeItem>3){activeItem=1;}
 			resetkeyboardcooldown();
 		}
 	}
+	void soundfxUP(){Time.timeScale = 1;AudioSource.PlayClipAtPoint(pauseMenuUp,new Vector3(0f, 22f, 0f),1f);Time.timeScale = 0;}
+	void soundfxDown(){Time.timeScale = 1;AudioSource.PlayClipAtPoint(pauseMenuDown,new Vector3(0f, 22f, 0f),1f);Time.timeScale = 0;}
 	void resetkeyboardcooldown(){keyboardCurrentCooldown = keyboardCooldown;}
 	
 	void reveal(){

@@ -28,6 +28,7 @@ public class gameFlow : MonoBehaviour {
 	[SerializeField] GameObject pausemenu;
 	bool gamepaused = false;
 	[SerializeField] AudioClip ballResetSound;
+	[SerializeField] AudioClip pauseMenuToggle;
 
 
 	void reset_scoreCooldownCurrent (){scoreCooldownCurrent = scoreCooldown;}
@@ -48,6 +49,7 @@ public class gameFlow : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void pause (){
+
 		if (gamepaused) {
 			gamepaused = false;
 			Time.timeScale = 1F;
@@ -60,6 +62,7 @@ public class gameFlow : MonoBehaviour {
 	void Update () {
 		scoreCooldownCurrent = scoreCooldownCurrent - Time.deltaTime;
 		if (Input.GetKeyUp (KeyCode.P)) {
+			AudioSource.PlayClipAtPoint(pauseMenuToggle,new Vector3(0f, 25f, 0f),1f);
 			pause();
 		}
 		bool scoreevent1 = scorezone1.GetComponent<scoreZone>().getEvent();
