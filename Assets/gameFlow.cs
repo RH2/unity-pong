@@ -27,6 +27,7 @@ public class gameFlow : MonoBehaviour {
 	[SerializeField] GameObject player2scoredisplay;
 	[SerializeField] GameObject pausemenu;
 	bool gamepaused = false;
+	[SerializeField] AudioClip ballResetSound;
 
 
 	void reset_scoreCooldownCurrent (){scoreCooldownCurrent = scoreCooldown;}
@@ -110,11 +111,13 @@ public class gameFlow : MonoBehaviour {
 		if (flip <= 5) {serve1 ();} else {serve2();}
 		}
 	void serve1(){
+		AudioSource.PlayClipAtPoint(ballResetSound,new Vector3(-12f, 25f, 0f),1f);
 		paddle1.GetComponent<Paddle> ().setActiveServer (true,true);
 
 
 	}
 	void serve2(){
+		AudioSource.PlayClipAtPoint(ballResetSound,new Vector3(12f, 25f, 0f),1f);
 		paddle2.GetComponent<Paddle> ().setActiveServer (true,false);
 
 	}

@@ -73,9 +73,9 @@ public class Paddle : MonoBehaviour {
 		ball.rigidbody.velocity = Vector3.zero;
 		ball.rigidbody.angularVelocity = Vector3.zero;
 		if (b) {
-			ball.transform.position = new Vector3(this.transform.position.x + 5, 0.5f, this.transform.position.z);//left side
+			ball.transform.position = new Vector3(this.transform.position.x + 3f, 0.5f, this.transform.position.z);//left side
 		} else if (!b) {
-			ball.transform.position = new Vector3(this.transform.position.x - 5, 0.5f, this.transform.position.z);//right side
+			ball.transform.position = new Vector3(this.transform.position.x - 2f, 0.5f, this.transform.position.z);//right side
 		}
 		ball.transform.parent = this.transform;
 	}
