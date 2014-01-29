@@ -12,12 +12,36 @@ public class menuController : MonoBehaviour {
 	[SerializeField] GameObject menu6;
 	[SerializeField] GameObject menu7;
 	[SerializeField] GameObject menu8;
+
+
 	float keyboardCooldown = 0.18f;
 	float keyboardCurrentCooldown;
-	// Use this for initialization
+
+
+	int thisframe=1;
+	int lastchange=1;
+
+
+
+
+
+	//sfx/////////////////////////////
+	[SerializeField] AudioClip introSound;
+	[SerializeField] AudioClip pauseMenuUp;
+	[SerializeField] AudioClip pauseMenuDown;
+	[SerializeField] AudioClip execute;
+	
+	void soundfxIntro(){AudioSource.PlayClipAtPoint(introSound,new Vector3(0f, 0f, 0f),1f);}
+	void soundfxUp(){AudioSource.PlayClipAtPoint(pauseMenuUp,new Vector3(0f, 0f, 0f),1f);}
+	void soundfxDown(){AudioSource.PlayClipAtPoint(pauseMenuDown,new Vector3(0f, 0f, 0f),1f);}
+	void soundfxExecute(){AudioSource.PlayClipAtPoint(execute,new Vector3(0f, 0f, 0f),1f);}
+
+
+	//mechanics//////////////////////
 	void OnLevelWasLoaded(){Start();}
 	void Start () {
 		Time.timeScale = 1F;
+		soundfxIntro ();
 		activeItem = 1;
 		menu1.GetComponent<guiToggle> ().setAllVisible(true);
 		menu2.GetComponent<guiToggle> ().setAllVisible(true);
@@ -39,10 +63,21 @@ public class menuController : MonoBehaviour {
 		if (keyboardCurrentCooldown < 0f) {keyboardOffset ();}
 		activeItem = checkMouseOver(activeItem);
 		updateMenu ();
+
+		//check menu change to play appropriate sfx
+		thisframe=activeItem;
+		if(thisframe!=lastchange){
+			if(thisframe<lastchange){soundfxDown();}
+			if(thisframe>lastchange){soundfxUp();}
+			lastchange=thisframe;
+		}
+
+
 		if (keyboardCurrentCooldown < 0f && (Input.GetKeyUp(KeyCode.Space)||Input.GetKeyUp(KeyCode.Return)|| Input.GetMouseButtonDown(0))) {executeChoice ();}
 	}
 	void executeChoice(){
-			//todo play execute sound
+			//play execute sound
+				soundfxExecute();
 			resetkeyboardcooldown();
 			switch(activeItem){
 			case(1):
