@@ -6,7 +6,7 @@ public class persistantPongData : MonoBehaviour {
 	 int playerTwoScore = 0;
 	 int playerTwoType = 3;
 	 int winner = 1;
-	 float difficulty = 1.00f;
+	 float difficulty = 0.008f;
 
 	
 	//setters
@@ -25,6 +25,5 @@ public class persistantPongData : MonoBehaviour {
 	void Awake(){DontDestroyOnLoad(gameObject);}
 	void Start () {/*DontDestroyOnLoad(gameObject);*/}
 	void Update () {
-		Debug.Log ("player two type: " + playerTwoType);
 	}
 }

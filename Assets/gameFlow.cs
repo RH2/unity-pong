@@ -102,7 +102,7 @@ public class gameFlow : MonoBehaviour {
 	void randomServe(){
 		float flip;
 		flip = Random.value;
-		if (flip <= 5) {serve1 ();} else {serve2();}
+		if (flip <= 0.5) {serve1 ();} else {serve2();}
 	} 
 	void randomServeCenter(){
 		float flip;
@@ -110,13 +110,12 @@ public class gameFlow : MonoBehaviour {
 		if (flip <= 5) {serve1 ();} else {serve2();}
 		}
 	void serve1(){
-		//from paddle1 until user hits hotkey, then it adds paddles velocity + horizonatal
-		ball.transform.position = paddle1.transform.position;
-		ball.transform.position = new Vector3(paddle1.transform.position.x + 5, 0.5f, paddle1.transform.position.z);
-		ball.rigidbody.velocity = Vector3.zero;
-		ball.rigidbody.angularVelocity = Vector3.zero;
-		ball.transform.parent = paddle1.transform;
+		paddle1.GetComponent<Paddle> ().setActiveServer (true,true);
+
+
 	}
 	void serve2(){
+		paddle2.GetComponent<Paddle> ().setActiveServer (true,false);
+
 	}
 }
