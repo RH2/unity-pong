@@ -38,8 +38,9 @@ public class gameFlow : MonoBehaviour {
 		DATA = GameObject.Find("A_DATA");
 		DATA.GetComponent<persistantPongData> ().setPlayerOneScore(0);
 		DATA.GetComponent<persistantPongData> ().setPlayerTwoScore(0);
-		paddle2.GetComponent<Paddle> ().setPaddleType (DATA.GetComponent<persistantPongData> ().getPlayerTwoType());
-		paddle2.GetComponent<Paddle> ().setDifficulty (DATA.GetComponent<persistantPongData> ().getDifficulty());
+		paddle2.GetComponent<PaddleV2> ().setPaddleType (DATA.GetComponent<persistantPongData> ().getPlayerTwoType());
+		paddle2.GetComponent<PaddleV2> ().setDifficulty (DATA.GetComponent<persistantPongData> ().getDifficulty());
+		randomServe ();
 		//randomServeCenter ();
 		//update score objects
 		//randomly choose which player does the first serve
@@ -115,13 +116,13 @@ public class gameFlow : MonoBehaviour {
 		}
 	void serve1(){
 		AudioSource.PlayClipAtPoint(ballResetSound,new Vector3(-12f, 25f, 0f),1f);
-		paddle1.GetComponent<Paddle> ().setActiveServer (true,true);
+		paddle1.GetComponent<PaddleV2> ().setActiveServer (true,true);
 
 
 	}
 	void serve2(){
 		AudioSource.PlayClipAtPoint(ballResetSound,new Vector3(12f, 25f, 0f),1f);
-		paddle2.GetComponent<Paddle> ().setActiveServer (true,false);
+		paddle2.GetComponent<PaddleV2> ().setActiveServer (true,false);
 
 	}
 }

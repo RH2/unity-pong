@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 public class ball : MonoBehaviour {
+	float speed=25f;
 	private float dir = -0.5f;
 	[SerializeField] AudioClip hitBoundry;
 	[SerializeField] AudioClip hitPaddle;
@@ -12,9 +13,12 @@ public class ball : MonoBehaviour {
 	void Start () {
 		//a = (AudioClip)Resources.Load("Sounds/ball_bounce");
 		//b = (AudioClip)Resources.Load("Sounds/ball_bounce2");
-		rigidbody.AddForce (new Vector3 (-10.0f, 0, 0));
+		//rigidbody.AddForce (new Vector3 (-10.0f, 0, 0));
 	}
 	void Update () {
+		if (rigidbody.velocity.sqrMagnitude < speed) {
+			rigidbody.velocity = rigidbody.velocity.normalized * speed;
+		}
 	}
 	void OnCollisionEnter(Collision collision) {
 		foreach (ContactPoint contact in collision.contacts) {
