@@ -3,15 +3,11 @@ using System.Collections;
 
 public class menuController : MonoBehaviour {
 	int activeItem = 1;
-	[SerializeField] GameObject DATA;
+	GameObject DATA;
 	[SerializeField] GameObject menu1;
 	[SerializeField] GameObject menu2;
 	[SerializeField] GameObject menu3;
 	[SerializeField] GameObject menu4;
-	[SerializeField] GameObject menu5;
-	[SerializeField] GameObject menu6;
-	[SerializeField] GameObject menu7;
-	[SerializeField] GameObject menu8;
 
 
 	float keyboardCooldown = 0.18f;
@@ -40,6 +36,7 @@ public class menuController : MonoBehaviour {
 	//mechanics//////////////////////
 	void OnLevelWasLoaded(){Start();}
 	void Start () {
+		DATA = GameObject.Find("A_DATA");
 		Time.timeScale = 1F;
 		soundfxIntro ();
 		activeItem = 1;
@@ -47,10 +44,6 @@ public class menuController : MonoBehaviour {
 		menu2.GetComponent<guiToggle> ().setAllVisible(true);
 		menu3.GetComponent<guiToggle> ().setAllVisible(true);
 		menu4.GetComponent<guiToggle> ().setAllVisible(true);
-		menu5.GetComponent<guiToggle> ().setAllVisible(true);
-		menu6.GetComponent<guiToggle> ().setAllVisible(true);
-		menu7.GetComponent<guiToggle> ().setAllVisible(true);
-		menu8.GetComponent<guiToggle> ().setAllVisible(true);
 
 
 		resetkeyboardcooldown ();
@@ -87,24 +80,12 @@ public class menuController : MonoBehaviour {
 				Application.LoadLevel ("arena");
 				break;
 			case(2):
-				
+				Application.OpenURL("https://twitter.com/R_H_2");				
 				break;
 			case(3):
-				
-				break;
-			case(4):
-				
-				break;
-			case(5):
-				
-				break;
-			case(6):
-				Application.OpenURL("https://twitter.com/R_H_2");
-				break;
-			case(7):
 				Application.OpenURL("http://twitter.com/tmpvar");
 				break;
-			case(8):
+			case(4):
 				Application.Quit();
 				break;
 			}
@@ -123,18 +104,6 @@ public class menuController : MonoBehaviour {
 		if (activeItem == 4) {
 			menu4.GetComponent<guiToggle> ().setToggle(true);
 		}else{menu4.GetComponent<guiToggle> ().setToggle(false);}
-		if (activeItem == 5) {
-			menu5.GetComponent<guiToggle> ().setToggle(true);
-		}else{menu5.GetComponent<guiToggle> ().setToggle(false);}
-		if (activeItem == 6) {
-			menu6.GetComponent<guiToggle> ().setToggle(true);
-		}else{menu6.GetComponent<guiToggle> ().setToggle(false);}
-		if (activeItem == 7) {
-			menu7.GetComponent<guiToggle> ().setToggle(true);
-		}else{menu7.GetComponent<guiToggle> ().setToggle(false);}
-		if (activeItem == 8) {
-			menu8.GetComponent<guiToggle> ().setToggle(true);
-		}else{menu8.GetComponent<guiToggle> ().setToggle(false);}
 	}
 	int checkMouseOver(int current){
 		int active = 1;
@@ -146,14 +115,6 @@ public class menuController : MonoBehaviour {
 			active = 3;
 		} else if (menu4.GetComponent<guiToggle> ().getMouseOver ()) {
 			active = 4;
-		} else if (menu5.GetComponent<guiToggle> ().getMouseOver ()) {
-			active = 5;
-		} else if (menu6.GetComponent<guiToggle> ().getMouseOver ()) {
-			active = 6;
-		} else if (menu7.GetComponent<guiToggle> ().getMouseOver ()) {
-			active = 7;
-		} else if (menu8.GetComponent<guiToggle> ().getMouseOver ()) {
-			active = 8;
 		} else {active = current;}
 
 		return active;
@@ -162,13 +123,13 @@ public class menuController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.UpArrow) || Input.GetKey (KeyCode.W)) {
 			//todo play sound up
 			activeItem--;
-			if(activeItem<1){activeItem=8;}
+			if(activeItem<1){activeItem=4;}
 			resetkeyboardcooldown();
 		}
 		if ( Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S) ){
 			//todo play sound down
 			activeItem++;
-			if(activeItem>8){activeItem=1;}
+			if(activeItem>4){activeItem=1;}
 			resetkeyboardcooldown();
 		}
 	}

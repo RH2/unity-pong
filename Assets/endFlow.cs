@@ -48,7 +48,6 @@ public class endFlow : MonoBehaviour {
 	void Update () {
 		if (Input.anyKey) {
 			Application.LoadLevel ("menu");
-			Debug.Log("here");
 		}
 	
 	}

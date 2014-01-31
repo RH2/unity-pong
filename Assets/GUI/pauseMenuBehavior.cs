@@ -6,6 +6,7 @@ public class pauseMenuBehavior : MonoBehaviour {
 	bool menuVisible=false;
 	bool menuOptionsAccess=false;
 	[SerializeField] GameObject pauseToggleObject;
+	[SerializeField] GameObject restartToggleObject;
 	[SerializeField] GameObject resumeToggleObject;
 	[SerializeField] GameObject returnToggleObject;
 	[SerializeField] GameObject redArcUR;
@@ -66,9 +67,12 @@ public class pauseMenuBehavior : MonoBehaviour {
 			gamecontroller.GetComponent<gameFlow>().pause();
 			break;
 		case(2):
-			gamecontroller.GetComponent<gameFlow>().pause();
+			Application.LoadLevel ("arena");
 			break;
 		case(3):
+			gamecontroller.GetComponent<gameFlow>().pause();
+			break;
+		case(4):
 			Application.LoadLevel ("menu"); 
 			break;
 		}
@@ -79,9 +83,12 @@ public class pauseMenuBehavior : MonoBehaviour {
 			pauseToggleObject.GetComponent<guiToggle> ().setToggle(true);
 		}else{pauseToggleObject.GetComponent<guiToggle> ().setToggle(false);}
 		if (activeItem == 2) {
+			restartToggleObject.GetComponent<guiToggle> ().setToggle(true);
+		}else{restartToggleObject.GetComponent<guiToggle> ().setToggle(false);}
+		if (activeItem == 3) {
 			resumeToggleObject.GetComponent<guiToggle> ().setToggle(true);
 		}else{resumeToggleObject.GetComponent<guiToggle> ().setToggle(false);}
-		if (activeItem == 3) {
+		if (activeItem == 4) {
 			returnToggleObject.GetComponent<guiToggle> ().setToggle(true);
 		}else{returnToggleObject.GetComponent<guiToggle> ().setToggle(false);}
 
@@ -90,12 +97,15 @@ public class pauseMenuBehavior : MonoBehaviour {
 		int active = 1;
 		if (pauseToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
 			active = 1;
-			soundfxUP();
-		} else if (resumeToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
+			soundfxUP ();
+		}else if (restartToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
 			active = 2;
 			soundfxUP();
-		} else if (returnToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
+		} else if (resumeToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
 			active = 3;
+			soundfxUP();
+		} else if (returnToggleObject.GetComponent<guiToggle> ().getMouseOver ()) {
+			active = 4;
 			soundfxUP();
 		} else {active = current;}
 		
@@ -106,14 +116,14 @@ public class pauseMenuBehavior : MonoBehaviour {
 			//play sound up
 				soundfxUP();
 			activeItem--;
-			if(activeItem<1){activeItem=3;}
+			if(activeItem<1){activeItem=4;}
 			resetkeyboardcooldown();
 		}
 		if ( Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.S) ){
 			// play sound down
 				soundfxDown();
 			activeItem++;
-			if(activeItem>3){activeItem=1;}
+			if(activeItem>4){activeItem=1;}
 			resetkeyboardcooldown();
 		}
 	}
@@ -131,6 +141,7 @@ public class pauseMenuBehavior : MonoBehaviour {
 		orangeBottom.GetComponent<simpleRenderInterface> ().setvisibility(true);
 
 		pauseToggleObject.GetComponent<guiToggle> ().setAllVisible(true);
+		restartToggleObject.GetComponent<guiToggle> ().setAllVisible(true);
 		resumeToggleObject.GetComponent<guiToggle> ().setAllVisible(true);
 		returnToggleObject.GetComponent<guiToggle> ().setAllVisible(true);
 		//animate redArcbr(y)&redArcbl(x) for loop*
@@ -142,6 +153,7 @@ public class pauseMenuBehavior : MonoBehaviour {
 		orangeBottom.GetComponent<simpleRenderInterface> ().setvisibility(false);
 
 		pauseToggleObject.GetComponent<guiToggle> ().setAllVisible(false);
+		restartToggleObject.GetComponent<guiToggle> ().setAllVisible(false);
 		resumeToggleObject.GetComponent<guiToggle> ().setAllVisible(false);
 		returnToggleObject.GetComponent<guiToggle> ().setAllVisible(false);
 		//animate redArcbr(y)&redArcbl(x) for loop*

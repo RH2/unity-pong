@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class persistantPongData : MonoBehaviour {
-	 int playerOneScore = 0;
-	 int playerTwoScore = 0;
-	 int playerTwoType = 3;
-	 int winner = 1;
-	 float difficulty = 0.008f;
+	 static int playerOneScore = 0;
+	 static int playerTwoScore = 0;
+	 static int playerTwoType = 3;
+	 static int winner = 1;
+	 static float difficulty = 0.008f;
 
 	
 	//setters
@@ -22,8 +22,19 @@ public class persistantPongData : MonoBehaviour {
 	public int getPlayerTwoType() {return(playerTwoType);}
 	public float getDifficulty(){return(difficulty);}
 	public int getWinner(){return(winner);}
-	void Awake(){DontDestroyOnLoad(gameObject);}
-	void Start () {/*DontDestroyOnLoad(gameObject);*/}
-	void Update () {
+
+	//there can only be one!!!
+	//private static bool created =false;
+	
+
+	void Awake(){}
+	void Start () {
+		//if (!created) {created=true;}else{Destroy(gameObject);}
+	}
+	void Update () {}
+	void checkFirst(bool a){
+		if (a==false){
+			Destroy(gameObject);
+		}
 	}
 }
