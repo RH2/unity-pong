@@ -80,24 +80,23 @@ public class PaddleV2 : MonoBehaviour {
 		this.transform.position = Vector3.Lerp(this.transform.position,computerServePosition,Mathf.Clamp(difficulty*5f,0f,1f));
 		//this.transform.position += new Vector3(0f, 0f, difficulty*(computerServePosition.z - this.transform.position.z));
 		//distance check to set paddleMovecomplete to true & launch ball.
-		if (computerServePosition.z - this.transform.position.z < serveThreshold) {
+		if (this.transform.position.z - computerServePosition.z < serveThreshold) {
 			PaddleMoveComplete=true;
 			paddleActiveServer=false;
 			ball.transform.parent = null;
-			ball.rigidbody.velocity = velocity + new Vector3((transform.position.x < 0) ? 50.0f : -50.0f, 0f, this.transform.position.z-computerServePosition.z);
+			ball.rigidbody.velocity = velocity + new Vector3((transform.position.x < 0) ? 50.0f : -50.0f, 0f, serveThreshold*5f);
 		}
 	}
 	public void ballAttach(){ball.transform.parent = this.transform;}
 	
 	public void setActiveServer(bool a, bool b){//b true =player 1, b false = player 2
 		paddleActiveServer = a;
-		ball.transform.position = this.transform.position;
 		ball.rigidbody.velocity = Vector3.zero;
 		ball.rigidbody.angularVelocity = Vector3.zero;
 		if (b) {
-			ball.transform.position = new Vector3(this.transform.position.x + 3f, 0.5f, this.transform.position.z*2f);//left side
+			ball.transform.position = new Vector3(this.transform.position.x + 3f, 0.5f, this.transform.position.z);//left side
 		} else if (!b) {
-			ball.transform.position = new Vector3(this.transform.position.x - 2f, 0.5f, this.transform.position.z*2f);//right side
+			ball.transform.position = new Vector3(this.transform.position.x - 2f, 0.5f, this.transform.position.z);//right side
 		}
 		ball.transform.parent = this.transform;
 	}

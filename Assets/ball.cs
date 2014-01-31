@@ -8,6 +8,8 @@ public class ball : MonoBehaviour {
 	[SerializeField] AudioClip scoreA;
 	[SerializeField] AudioClip scoreB;
 
+
+	[SerializeField] GameObject mainCamera;
 	[SerializeField] GameObject particleA;
 	float mass=1f;
 	void Start () {
@@ -21,17 +23,16 @@ public class ball : MonoBehaviour {
 	}
 	void Update () {
 
-		if (Mathf.Abs(rigidbody.velocity.x) < speed && this.transform.parent.tag != "paddle" ) {
+		/*if (Mathf.Abs(rigidbody.velocity.x) < speed && this.transform.parent.tag != "paddle" ) {
 			rigidbody.AddForce(Vector3.right*0.05f);
-			//rigidbody.AddForce(  Vector3.forward *20*mass*(2*Mathf.Abs (rigidbody.velocity.z)));
-			//rigidbody.velocity = rigidbody.velocity.normalized * speed;
-		}
+		}*/
 	}
 	void OnCollisionEnter(Collision collision) {
 		foreach (ContactPoint contact in collision.contacts) {
 			if (contact.otherCollider.gameObject.tag == "resetBall"){
 			}
 			else if (contact.otherCollider.gameObject.tag == "boundry"){
+				mainCamera.GetComponent<cameraSoftLerp> ().increaseCameraShake ();
 				GameObject newSplash = Instantiate (particleA, contact.point, Quaternion.identity) as GameObject;
 				//particleAdd(contact.otherCollider.gameObject.transform);
 				audio.clip = hitBoundry;
@@ -39,6 +40,7 @@ public class ball : MonoBehaviour {
 				//AudioSource.PlayClipAtPoint(b,new Vector3(5, 1, 2),1.0f);
 			}
 			else if (contact.otherCollider.gameObject.tag == "paddle") {
+				mainCamera.GetComponent<cameraSoftLerp> ().increaseCameraShake ();
 				GameObject newSplash = Instantiate (particleA, contact.point, Quaternion.identity) as GameObject;
 				audio.clip = hitPaddle;
 				audio.Play();
@@ -57,8 +59,16 @@ public class ball : MonoBehaviour {
 		float mass = rigidbody.mass;
 
 		if (this.transform.position.z > 5.25f) {//if the ball is above the top bountary, it creates a negative vector and applies it to the z as a force
+			mainCamera.GetComponent<cameraSoftLerp> ().increaseCameraShake ();
+			GameObject newSplash = Instantiate (particleA, transform.position, Quaternion.identity) as GameObject;
+			audio.clip = hitBoundry;
+			audio.Play();
 			rigidbody.AddForce( Vector3.forward * 204*mass*(-2*Mathf.Abs(rigidbody.velocity.z)));
 		}else if (this.transform.position.z < -5.25f) {
+			mainCamera.GetComponent<cameraSoftLerp> ().increaseCameraShake ();
+			GameObject newSplash = Instantiate (particleA, transform.position, Quaternion.identity) as GameObject;
+			audio.clip = hitBoundry;
+			audio.Play();
 			rigidbody.AddForce(  Vector3.forward *204*mass*(2*Mathf.Abs (rigidbody.velocity.z)));
 		} 
 	}
