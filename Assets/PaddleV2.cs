@@ -18,6 +18,8 @@ public class PaddleV2 : MonoBehaviour {
 	bool paddleActiveServer = false; //if true, this paddle serves
 	bool PaddleMoveComplete=true;	//if true, this paddle can begin animation loop
 	Vector3 computerServePosition;  //point generated for new serve position
+	Vector3 paddleBeginServePosition;
+	float serveProgress=0;
 	
 	
 	
@@ -63,29 +65,34 @@ public class PaddleV2 : MonoBehaviour {
 			//available variables: 	///paddleActiveServer///PaddleMoveComplete///Vector3 computerServePosition;
 			//serve?
 			if (paddleActiveServer== true && PaddleMoveComplete==true) {
+				paddleBeginServePosition= this.transform.position;
 				ball.transform.parent = this.transform;							//ball is now child of paddle
 				//computerServePosition = new Vector3(0f,0f,Random.Range(-5f,5f));	//new point/position generated	//5 - -5  serve range
 				if(this.transform.position.z<0f){computerServePosition=new Vector3(this.transform.position.x,this.transform.position.y,2.739f);} else{computerServePosition=new Vector3(this.transform.position.x,this.transform.position.y,-2.739f);}
-				serveThreshold = Random.Range(0.3f,1f);
+				serveThreshold = Random.Range(0.5f,1f);
 				PaddleMoveComplete=false;										//animation loop will now be called in each update
 				break;
 			}
-			if(PaddleMoveComplete==false){ AnimatePaddleToPoint(); break;}
+			if(PaddleMoveComplete==false){ serveProgress=AnimatePaddleToPoint(serveProgress); break;}
 			this.transform.position += new Vector3(0f, 0f, difficulty*(ball.rigidbody.position.z - this.transform.position.z));
 			//spin option?
 			break;
 		}
 	}
-	void AnimatePaddleToPoint(){
-		this.transform.position = Vector3.Lerp(this.transform.position,computerServePosition,Mathf.Clamp(difficulty*5f,0f,1f));
+	float AnimatePaddleToPoint(float a){
+		this.transform.position =Vector3.Lerp (paddleBeginServePosition, computerServePosition, a);
+		a=a+difficulty;
+		//this.transform.position = Vector3.Lerp(this.transform.position,computerServePosition,Mathf.Clamp(difficulty*5f,0f,1f));
 		//this.transform.position += new Vector3(0f, 0f, difficulty*(computerServePosition.z - this.transform.position.z));
 		//distance check to set paddleMovecomplete to true & launch ball.
-		if (this.transform.position.z - computerServePosition.z < serveThreshold) {
+		if (a > serveThreshold) {
+
 			PaddleMoveComplete=true;
 			paddleActiveServer=false;
 			ball.transform.parent = null;
-			ball.rigidbody.velocity = velocity + new Vector3((transform.position.x < 0) ? 50.0f : -50.0f, 0f, serveThreshold*5f);
+			ball.rigidbody.velocity = velocity + new Vector3((transform.position.x < 0) ? 50.0f : -50.0f, 0f, computerServePosition.z-paddleBeginServePosition.z*2f);
 		}
+		return a;
 	}
 	public void ballAttach(){ball.transform.parent = this.transform;}
 	
