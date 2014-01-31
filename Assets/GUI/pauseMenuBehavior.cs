@@ -67,6 +67,7 @@ public class pauseMenuBehavior : MonoBehaviour {
 			gamecontroller.GetComponent<gameFlow>().pause();
 			break;
 		case(2):
+			Time.timeScale = 1F;
 			Application.LoadLevel ("arena");
 			break;
 		case(3):
