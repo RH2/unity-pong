@@ -14,6 +14,7 @@ public class PaddleV2 : MonoBehaviour {
 	float distance= 1f;
 	
 	//computer serve random point & animaiton progress
+	float serveThreshold = 0f;
 	bool paddleActiveServer = false; //if true, this paddle serves
 	bool PaddleMoveComplete=true;	//if true, this paddle can begin animation loop
 	Vector3 computerServePosition;  //point generated for new serve position
@@ -63,7 +64,9 @@ public class PaddleV2 : MonoBehaviour {
 			//serve?
 			if (paddleActiveServer== true && PaddleMoveComplete==true) {
 				ball.transform.parent = this.transform;							//ball is now child of paddle
-				computerServePosition = new Vector3(0f,0f,Random.Range(-5f,5f));	//new point/position generated	//5 - -5  serve range
+				//computerServePosition = new Vector3(0f,0f,Random.Range(-5f,5f));	//new point/position generated	//5 - -5  serve range
+				if(this.transform.position.z<0f){computerServePosition=new Vector3(this.transform.position.x,this.transform.position.y,2.739f);} else{computerServePosition=new Vector3(this.transform.position.x,this.transform.position.y,-2.739f);}
+				serveThreshold = Random.Range(0.3f,1f);
 				PaddleMoveComplete=false;										//animation loop will now be called in each update
 				break;
 			}
@@ -74,13 +77,14 @@ public class PaddleV2 : MonoBehaviour {
 		}
 	}
 	void AnimatePaddleToPoint(){
-		this.transform.position += new Vector3(0f, 0f, difficulty*(computerServePosition.z - this.transform.position.z));
+		this.transform.position = Vector3.Lerp(this.transform.position,computerServePosition,Mathf.Clamp(difficulty*5f,0f,1f));
+		//this.transform.position += new Vector3(0f, 0f, difficulty*(computerServePosition.z - this.transform.position.z));
 		//distance check to set paddleMovecomplete to true & launch ball.
-		if (computerServePosition.z - this.transform.position.z < 0.3f) {
+		if (computerServePosition.z - this.transform.position.z < serveThreshold) {
 			PaddleMoveComplete=true;
 			paddleActiveServer=false;
 			ball.transform.parent = null;
-			ball.rigidbody.velocity = velocity + new Vector3((transform.position.x < 0) ? 50.0f : -50.0f, 0.0f, 0.0f);
+			ball.rigidbody.velocity = velocity + new Vector3((transform.position.x < 0) ? 50.0f : -50.0f, 0f, this.transform.position.z-computerServePosition.z);
 		}
 	}
 	public void ballAttach(){ball.transform.parent = this.transform;}
@@ -91,9 +95,9 @@ public class PaddleV2 : MonoBehaviour {
 		ball.rigidbody.velocity = Vector3.zero;
 		ball.rigidbody.angularVelocity = Vector3.zero;
 		if (b) {
-			ball.transform.position = new Vector3(this.transform.position.x + 3f, 0.5f, this.transform.position.z);//left side
+			ball.transform.position = new Vector3(this.transform.position.x + 3f, 0.5f, this.transform.position.z*2f);//left side
 		} else if (!b) {
-			ball.transform.position = new Vector3(this.transform.position.x - 2f, 0.5f, this.transform.position.z);//right side
+			ball.transform.position = new Vector3(this.transform.position.x - 2f, 0.5f, this.transform.position.z*2f);//right side
 		}
 		ball.transform.parent = this.transform;
 	}

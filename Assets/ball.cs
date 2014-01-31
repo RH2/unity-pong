@@ -57,9 +57,9 @@ public class ball : MonoBehaviour {
 		float mass = rigidbody.mass;
 
 		if (this.transform.position.z > 5.25f) {//if the ball is above the top bountary, it creates a negative vector and applies it to the z as a force
-			rigidbody.AddForce( Vector3.forward * 208*mass*(-2*Mathf.Abs(rigidbody.velocity.z)));
+			rigidbody.AddForce( Vector3.forward * 204*mass*(-2*Mathf.Abs(rigidbody.velocity.z)));
 		}else if (this.transform.position.z < -5.25f) {
-			rigidbody.AddForce(  Vector3.forward *208*mass*(2*Mathf.Abs (rigidbody.velocity.z)));
+			rigidbody.AddForce(  Vector3.forward *204*mass*(2*Mathf.Abs (rigidbody.velocity.z)));
 		} 
 	}
 

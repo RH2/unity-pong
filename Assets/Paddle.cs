@@ -55,7 +55,7 @@ public class Paddle : MonoBehaviour {
 				if (paddleActiveServer== true && PaddleMoveComplete==true) {
 					ball.transform.parent = this.transform;							//ball is now child of paddle
 					//computerServePosition = new Vector3(0f,0f,Random.Range(-5f,5f));	//new point/position generated	//5 - -5  serve range
-					if(this.transform.position.z<1.75f){computerServePosition=Vector3.forward*-3.75f;} else{computerServePosition=Vector3.forward*3.75f;}
+					if(this.transform.position.z<0f){computerServePosition=Vector3.forward*2.739f;} else{computerServePosition=Vector3.forward*-2.739f;}
 					
 
 					PaddleMoveComplete=false;										//animation loop will now be called in each update
@@ -68,9 +68,10 @@ public class Paddle : MonoBehaviour {
 		}
 	}
 	void AnimatePaddleToPoint(){
-		this.transform.position += new Vector3(0f, 0f, 900f*difficulty*(computerServePosition.z - this.transform.position.z));
+		this.transform.position = Vector3.Lerp(this.transform.position,computerServePosition,Mathf.Clamp(difficulty*500000f,0f,1f));
+		//this.transform.position += new Vector3(0f, 0f, difficulty*(computerServePosition.z - this.transform.position.z));
 		//distance check to set paddleMovecomplete to true & launch ball.
-		if (computerServePosition.z - this.transform.position.z < Random.Range(0.3f,0.8f)) {
+		if (computerServePosition.z - this.transform.position.z < Random.Range(0.3f,1f)) {
 			PaddleMoveComplete=true;
 			paddleActiveServer=false;
 			ball.transform.parent = null;
