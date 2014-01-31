@@ -9,15 +9,22 @@ public class ball : MonoBehaviour {
 	[SerializeField] AudioClip scoreB;
 
 	[SerializeField] GameObject particleA;
-
+	float mass=1f;
 	void Start () {
+		float mass = rigidbody.mass;
 		//a = (AudioClip)Resources.Load("Sounds/ball_bounce");
 		//b = (AudioClip)Resources.Load("Sounds/ball_bounce2");
 		//rigidbody.AddForce (new Vector3 (-10.0f, 0, 0));
 	}
+	void FixedUpdate(){
+		pushIntoGameAreaZ ();
+	}
 	void Update () {
-		if (rigidbody.velocity.sqrMagnitude < speed) {
-			rigidbody.velocity = rigidbody.velocity.normalized * speed;
+
+		if (Mathf.Abs(rigidbody.velocity.x) < speed && this.transform.parent.tag != "paddle" ) {
+			rigidbody.AddForce(Vector3.right*0.05f);
+			//rigidbody.AddForce(  Vector3.forward *20*mass*(2*Mathf.Abs (rigidbody.velocity.z)));
+			//rigidbody.velocity = rigidbody.velocity.normalized * speed;
 		}
 	}
 	void OnCollisionEnter(Collision collision) {
@@ -44,6 +51,16 @@ public class ball : MonoBehaviour {
 				rigidbody.AddForce (new Vector3 (this.dir, 0, 0));
 			}
 		}
+	}
+	void pushIntoGameAreaZ(){
+		//float speedZ = rigidbody.velocity.z;
+		float mass = rigidbody.mass;
+
+		if (this.transform.position.z > 5.25f) {//if the ball is above the top bountary, it creates a negative vector and applies it to the z as a force
+			rigidbody.AddForce( Vector3.forward * 208*mass*(-2*Mathf.Abs(rigidbody.velocity.z)));
+		}else if (this.transform.position.z < -5.25f) {
+			rigidbody.AddForce(  Vector3.forward *208*mass*(2*Mathf.Abs (rigidbody.velocity.z)));
+		} 
 	}
 
 	void particleAdd(Transform a){
