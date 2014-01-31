@@ -16,7 +16,7 @@ public class cameraSoftLerp : MonoBehaviour {
 	void Update () {
 		concurrentCollisions=Mathf.Clamp (concurrentCollisions,0f,0.95f);
 		executeCameraShake ();
-		this.transform.position += new Vector3(lerpSpeed*(ball.rigidbody.position.x - this.transform.position.x), 0f, lerpSpeed*(ball.rigidbody.position.z - this.transform.position.z));
+		this.transform.position += new Vector3(lerpSpeed*(ball.rigidbody.position.x/2f - this.transform.position.x), 0f, lerpSpeed*(ball.rigidbody.position.z/2f - this.transform.position.z));
 	}
 	public void increaseCameraShake(){
 		concurrentCollisions=concurrentCollisions+1;
@@ -24,7 +24,7 @@ public class cameraSoftLerp : MonoBehaviour {
 	}
 	void executeCameraShake(){
 		if (concurrentCollisions > 0) {
-			this.transform.position += new Vector3(Random.value-0.5f,0f,Random.value-0.5f)*0.26f*concurrentCollisions;
+			this.transform.position += new Vector3(Random.value-0.5f,0f,Random.value-0.5f)*0.2f*concurrentCollisions;
 		}
 		Mathf.Floor(concurrentCollisions=concurrentCollisions-0.016f);
 	}

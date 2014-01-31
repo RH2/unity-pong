@@ -81,12 +81,12 @@ public class PaddleV2 : MonoBehaviour {
 	}
 	float AnimatePaddleToPoint(float a){
 		this.transform.position =Vector3.Lerp (paddleBeginServePosition, computerServePosition, a);
-		a=a+difficulty;
+		a=a+(100*difficulty*Time.deltaTime);
 		//this.transform.position = Vector3.Lerp(this.transform.position,computerServePosition,Mathf.Clamp(difficulty*5f,0f,1f));
 		//this.transform.position += new Vector3(0f, 0f, difficulty*(computerServePosition.z - this.transform.position.z));
 		//distance check to set paddleMovecomplete to true & launch ball.
 		if (a > serveThreshold) {
-
+			a=0;
 			PaddleMoveComplete=true;
 			paddleActiveServer=false;
 			ball.transform.parent = null;
